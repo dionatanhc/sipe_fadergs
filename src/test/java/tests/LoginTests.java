@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
+import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -60,8 +61,8 @@ public class LoginTests extends BaseTest {
     void ct004LoginValido() {
         LoginPage login = new LoginPage(driver);
         login.abrirTelaLogin();
-        login.informarEmail("seu_email_valido@exemplo.com");
-        login.informarSenha("sua_senha_valida");
+        login.informarEmail(ConfigReader.get("APP_USER"));
+        login.informarSenha(ConfigReader.get("APP_PASS"));
         login.clicarLogin();
 
         aguardarVisualizacao();
