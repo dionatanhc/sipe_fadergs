@@ -34,13 +34,6 @@ public class LoginPage extends BasePage {
         clicar(btnLogin);
     }
 
-    public void realizarLogin(String email, String senha) {
-        abrirTelaLogin();
-        informarEmail(email);
-        informarSenha(senha);
-        clicarLogin();
-    }
-
     public String obterUrlAtual() {
         return driver.getCurrentUrl();
     }

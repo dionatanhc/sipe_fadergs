@@ -59,16 +59,8 @@ public class CadastroPage extends BasePage {
         digitar(campoSobrenome, sobrenome);
     }
 
-    public void informarDataNascimento(String data) {
-        digitar(campoDataNascimento, data);
-    }
-
     public void informarSenha(String senha) {
         digitar(campoSenha, senha);
-    }
-
-    public void informarTelefone(String telefone) {
-        digitar(campoTelefone, telefone);
     }
 
     public void aceitarTermos() {
@@ -91,10 +83,6 @@ public class CadastroPage extends BasePage {
         ));
 
         driver.switchTo().defaultContent();
-    }
-
-    public boolean recaptchaEstaVisivel() {
-        return !driver.findElements(iframeRecaptcha).isEmpty();
     }
 
     public void clicarCadastrar() {
