@@ -10,13 +10,25 @@ public abstract class BaseTest {
     protected WebDriver driver;
 
     @BeforeEach
-    void abrirNavegador() {
+    public void abrirNavegador() {
+
         driver = DriverFactory.criarDriver();
+
         driver.get("https://www.lojasrenner.com.br");
     }
 
+    protected void aguardarVisualizacao() {
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     @AfterEach
-    void fecharNavegador() {
+    public void fecharNavegador() {
+
         if (driver != null) {
             driver.quit();
         }

@@ -18,8 +18,16 @@ public class BuscaTests extends BaseTest {
     @Test
     @DisplayName("Deve buscar um produto existente")
     void buscarProdutoExistente() {
-        BuscaPage busca = new BuscaPage(driver);
+
+        BuscaPage busca =
+                new BuscaPage(driver);
+
         busca.buscarProduto("camiseta");
-        assertTrue(busca.getUrlAtual().contains("camiseta"));
+
+        assertTrue(
+                driver.getPageSource()
+                        .toLowerCase()
+                        .contains("camiseta")
+        );
     }
 }

@@ -14,21 +14,37 @@ public abstract class BasePage {
     protected WebDriverWait wait;
 
     public BasePage(WebDriver driver) {
+
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(15)
+        );
     }
 
     protected WebElement esperarVisivel(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+        return wait.until(
+                ExpectedConditions
+                        .visibilityOfElementLocated(locator)
+        );
     }
 
     protected void clicar(By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+
+        wait.until(
+                ExpectedConditions
+                        .elementToBeClickable(locator)
+        ).click();
     }
 
-    protected void digitar(By locator, String texto) {
-        WebElement campo = esperarVisivel(locator);
-        campo.clear();
-        campo.sendKeys(texto);
+    protected void digitar(By locator,
+                           String texto) {
+
+        WebElement elemento =
+                esperarVisivel(locator);
+
+        elemento.clear();
+        elemento.sendKeys(texto);
     }
 }
