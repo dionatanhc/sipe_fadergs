@@ -20,7 +20,7 @@ public abstract class BaseTest {
     protected void aguardarVisualizacao() {
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
