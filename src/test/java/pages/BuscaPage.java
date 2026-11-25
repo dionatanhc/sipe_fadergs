@@ -33,7 +33,9 @@ public class BuscaPage extends BasePage {
     }
 
     public boolean possuiProdutos() {
-        return !driver.findElements(cardsProduto).isEmpty();
+        return wait.until(
+                driver -> !driver.findElements(cardsProduto).isEmpty()
+        );
     }
 
     public String obterUrlAtual() {
