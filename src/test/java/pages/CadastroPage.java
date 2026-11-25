@@ -20,9 +20,7 @@ public class CadastroPage extends BasePage {
     private final By campoCpf = By.xpath("(//form[@class='modal-register__form']//input[@inputmode='numeric'])[1]");
     private final By campoNome = By.cssSelector("form.modal-register__form input[name='firstName']");
     private final By campoSobrenome = By.cssSelector("form.modal-register__form input[name='lastName']");
-    private final By campoDataNascimento = By.xpath("(//form[@class='modal-register__form']//input[@inputmode='numeric'])[2]");
     private final By campoSenha = By.cssSelector("form.modal-register__form input[name='password']");
-    private final By campoTelefone = By.xpath("(//form[@class='modal-register__form']//input[@inputmode='numeric'])[3]");
 
     // Termos de Uso, reCAPTCHA e Botão Final
     private final By checkboxTermos =
