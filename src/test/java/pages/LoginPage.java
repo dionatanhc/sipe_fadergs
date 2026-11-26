@@ -1,7 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 public class LoginPage extends BasePage {
 
@@ -10,16 +9,20 @@ public class LoginPage extends BasePage {
     }
 
     private final By btnEntrar =
-            By.xpath("//span[@class='user-info']//span[contains(normalize-space(), 'Entre ou cadastre-se')]");
+            By.cssSelector("span.user-info");
+
     private final By campoEmail =
-            By.cssSelector("input[name='login']");
+            By.cssSelector("input[name='login'][aria-label='E-mail ou CPF']");
+
     private final By campoSenha =
             By.cssSelector("input[name='password']");
+
     private final By btnLogin =
             By.xpath("//div[contains(@class,'modal-login__form-action')]//button[normalize-space()='ENTRAR']");
 
     public void abrirTelaLogin() {
         clicar(btnEntrar);
+        esperarVisivel(campoEmail);
     }
 
     public void informarEmail(String email) {
@@ -31,7 +34,7 @@ public class LoginPage extends BasePage {
     }
 
     public void clicarLogin() {
-        clicar(btnLogin);
+        clicarComJS(btnLogin);
     }
 
     public String obterUrlAtual() {
@@ -43,7 +46,6 @@ public class LoginPage extends BasePage {
     }
 
     public boolean contemTexto(String texto) {
-
         return obterPagina()
                 .toLowerCase()
                 .contains(texto.toLowerCase());

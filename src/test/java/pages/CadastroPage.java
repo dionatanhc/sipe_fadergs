@@ -1,7 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 public class CadastroPage extends BasePage {
 
@@ -9,36 +8,46 @@ public class CadastroPage extends BasePage {
         super(driver);
     }
 
-    // Navegação até o formulário de cadastro
     private final By btnEntrarOuCadastrar =
-            By.xpath("//span[@class='user-info']//span[contains(normalize-space(), 'Entre ou cadastre-se')]");
+            By.cssSelector("span.user-info");
+
     private final By btnQueroMeCadastrar =
-            By.cssSelector("div.modal-login__register-container button");
+            By.xpath("//button[normalize-space()='QUERO ME CADASTRAR']");
 
-    // Campos reais do formulário de cadastro
-    private final By campoEmail = By.cssSelector("form.modal-register__form input[name='login']");
-    private final By campoCpf = By.xpath("(//form[@class='modal-register__form']//input[@inputmode='numeric'])[1]");
-    private final By campoNome = By.cssSelector("form.modal-register__form input[name='firstName']");
-    private final By campoSobrenome = By.cssSelector("form.modal-register__form input[name='lastName']");
-    private final By campoSenha = By.cssSelector("form.modal-register__form input[name='password']");
+    private final By campoEmail =
+            By.cssSelector("input[name='login'][aria-label='E-mail']");
 
-    // Termos de Uso, reCAPTCHA e Botão Final
+    private final By campoCpf =
+            By.xpath("(//form[@class='modal-register__form']//input[@inputmode='numeric'])[1]");
+
+    private final By campoNome =
+            By.cssSelector("form.modal-register__form input[name='firstName']");
+
+    private final By campoSobrenome =
+            By.cssSelector("form.modal-register__form input[name='lastName']");
+
+    private final By campoSenha =
+            By.cssSelector("form.modal-register__form input[name='password']");
+
     private final By checkboxTermos =
             By.cssSelector("form.modal-register__form input[name='legalTermsAcceptance']");
-    private final By iframeRecaptcha = By.cssSelector("iframe[title='reCAPTCHA']");
-    private final By checkboxRecaptcha = By.id("recaptcha-anchor");
+
+    private final By iframeRecaptcha =
+            By.cssSelector("iframe[title='reCAPTCHA']");
+
+    private final By checkboxRecaptcha =
+            By.id("recaptcha-anchor");
+
     private final By btnFinalizarCadastro =
             By.xpath("//div[contains(@class,'modal-login__form-action')]//button[normalize-space()='Cadastrar']");
 
     public void abrirTelaCadastro() {
         clicar(btnEntrarOuCadastrar);
-        try {
-            clicar(btnQueroMeCadastrar);
-        } catch (Exception e) {
-            // Caso algum banner/overlay tenha absorvido o primeiro clique, clica novamente
-            clicar(btnEntrarOuCadastrar);
-            clicar(btnQueroMeCadastrar);
-        }
+
+        esperarVisivel(btnQueroMeCadastrar);
+        clicar(btnQueroMeCadastrar);
+
+        esperarVisivel(campoEmail);
     }
 
     public void informarEmail(String email) {
@@ -63,8 +72,12 @@ public class CadastroPage extends BasePage {
 
     public void aceitarTermos() {
         var checkbox = driver.findElement(checkboxTermos);
+
         ((org.openqa.selenium.JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", checkbox);
+                .executeScript(
+                        "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();",
+                        checkbox
+                );
     }
 
     public void clicarRecaptcha() {
@@ -112,14 +125,11 @@ public class CadastroPage extends BasePage {
     public void clicarCadastrar() {
 
         try {
-
             driver.switchTo().defaultContent();
-
         } catch (Exception ignored) {
         }
 
         rolarAte(btnFinalizarCadastro);
-
         clicarComJS(btnFinalizarCadastro);
     }
 
