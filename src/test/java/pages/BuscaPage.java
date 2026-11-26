@@ -19,26 +19,45 @@ public class BuscaPage extends BasePage {
     private final By cardsProduto =
             By.cssSelector("[data-product-id][data-sku-id]");
 
+    private final By primeiroProduto =
+            By.cssSelector("h3.ProductBox_title__x9UGh");
+
     public void buscarProduto(String termo) {
+
         digitar(campoBusca, termo);
-        esperarVisivel(campoBusca).sendKeys(Keys.ENTER);
+
+        esperarVisivel(campoBusca)
+                .sendKeys(Keys.ENTER);
     }
 
     public void buscarCampoVazio() {
-        esperarVisivel(campoBusca).sendKeys(Keys.ENTER);
+
+        esperarVisivel(campoBusca)
+                .sendKeys(Keys.ENTER);
+    }
+
+    public void abrirPrimeiroProduto() {
+
+        rolarAte(primeiroProduto);
+
+        clicarComJS(primeiroProduto);
     }
 
     public String obterTermoBuscado() {
-        return esperarVisivel(termoBuscado).getText();
+
+        return esperarVisivel(termoBuscado)
+                .getText();
     }
 
     public boolean possuiProdutos() {
+
         return wait.until(
                 driver -> !driver.findElements(cardsProduto).isEmpty()
         );
     }
 
     public String obterUrlAtual() {
+
         return driver.getCurrentUrl();
     }
 }

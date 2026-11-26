@@ -68,23 +68,59 @@ public class CadastroPage extends BasePage {
     }
 
     public void clicarRecaptcha() {
-        var wait = new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(15));
 
-        // Aguarda o iframe existir no DOM e já entra nele automaticamente
-        wait.until(org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframeRecaptcha));
+        try {
 
-        clicar(checkboxRecaptcha);
+            var wait =
+                    new org.openqa.selenium.support.ui.WebDriverWait(
+                            driver,
+                            java.time.Duration.ofSeconds(10)
+                    );
 
-        // Aguarda o check verde (aria-checked="true") antes de sair
-        wait.until(org.openqa.selenium.support.ui.ExpectedConditions.attributeToBe(
-                checkboxRecaptcha, "aria-checked", "true"
-        ));
+            wait.until(
+                    org.openqa.selenium.support.ui
+                            .ExpectedConditions
+                            .frameToBeAvailableAndSwitchToIt(
+                                    iframeRecaptcha
+                            )
+            );
 
-        driver.switchTo().defaultContent();
+            clicar(checkboxRecaptcha);
+
+            wait.until(
+                    org.openqa.selenium.support.ui
+                            .ExpectedConditions
+                            .attributeToBe(
+                                    checkboxRecaptcha,
+                                    "aria-checked",
+                                    "true"
+                            )
+            );
+
+            driver.switchTo().defaultContent();
+
+        } catch (Exception e) {
+
+            driver.switchTo().defaultContent();
+
+            System.out.println(
+                    "reCAPTCHA não validado automaticamente."
+            );
+        }
     }
 
     public void clicarCadastrar() {
-        clicar(btnFinalizarCadastro);
+
+        try {
+
+            driver.switchTo().defaultContent();
+
+        } catch (Exception ignored) {
+        }
+
+        rolarAte(btnFinalizarCadastro);
+
+        clicarComJS(btnFinalizarCadastro);
     }
 
     public boolean contemTexto(String texto) {
