@@ -1,8 +1,7 @@
 package tests;
 
 import base.BaseTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pages.BuscaPage;
 import pages.FiltroPage;
 
