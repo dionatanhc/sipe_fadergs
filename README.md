@@ -1,8 +1,8 @@
-# Automação de Testes - Lojas Renner
+# Automação de Testes E2E - Lojas Renner
 
-Projeto de automação de testes funcionais End-to-End desenvolvido como estudo de caso para o **Projeto Científico FADERGS**.
+Projeto de automação de testes funcionais End-to-End (E2E) desenvolvido como estudo de caso para o **Projeto Científico FADERGS**.
 
-A suíte utiliza **Java 21, Selenium WebDriver, JUnit 5, Maven e Page Object Model (POM)** para validar funcionalidades do e-commerce Lojas Renner.
+A suíte utiliza **Java 21, Selenium WebDriver, JUnit 5, Maven e Page Object Model (POM)** para validar fluxos do e-commerce Lojas Renner diretamente pela interface da aplicação.
 
 ## Resultado final
 
@@ -11,21 +11,21 @@ A suíte utiliza **Java 21, Selenium WebDriver, JUnit 5, Maven e Page Object Mod
 20 testes aprovados
 0 falhas
 Taxa de aprovação: 100%
-Tempo aproximado: 9 min 2 s
+Tempo de execução: 8 min 33 s
 ```
 
 ---
 
 ## Objetivo
 
-Desenvolver uma suíte de testes automatizados para validar fluxos relevantes de um e-commerce real, aplicando conceitos de Qualidade de Software, testes funcionais de caixa-preta e automação.
+Desenvolver uma suíte automatizada para validar fluxos relevantes de um e-commerce real, aplicando conceitos de Qualidade de Software, testes funcionais de caixa-preta e automação E2E.
 
 Funcionalidades cobertas:
 
 - Login
 - Cadastro
 - Busca de produtos
-- Filtros de pesquisa
+- Filtros
 - Carrinho de compras
 - Recuperação de senha
 
@@ -36,21 +36,21 @@ Funcionalidades cobertas:
 | Tecnologia | Versão | Finalidade |
 |---|---:|---|
 | Java | 21 | Linguagem principal |
-| Selenium WebDriver | 4.34.0 | Automação web |
-| JUnit 5 | 5.13.4 | Estrutura e execução dos testes |
+| Selenium WebDriver | 4.34.0 | Automação do navegador |
+| JUnit 5 | 5.13.4 | Execução e validação dos testes |
 | Maven | - | Gerenciamento de dependências |
-| Maven Surefire Plugin | 3.5.3 | Execução dos testes |
+| Maven Surefire Plugin | 3.5.3 | Execução da suíte |
 | dotenv-java | 3.0.0 | Variáveis de ambiente |
 | Google Chrome | - | Navegador utilizado |
 | IntelliJ IDEA | - | Desenvolvimento e execução |
 | Git / GitHub | - | Versionamento |
-| Page Object Model | - | Arquitetura da automação |
+| Page Object Model | - | Organização da automação |
 
 ---
 
 ## Arquitetura
 
-O projeto utiliza **Page Object Model (POM)**, separando a lógica de interação com a interface dos casos de teste.
+O projeto utiliza **Page Object Model (POM)**, separando os casos de teste dos seletores e das ações realizadas na interface.
 
 ```text
 src/test/java/
@@ -76,70 +76,51 @@ src/test/java/
     └── DriverFactory.java
 ```
 
-### BaseTest
+Principais responsabilidades:
 
-Responsável por:
+- **BaseTest:** abertura e encerramento do navegador.
+- **BasePage:** operações comuns como espera, clique, digitação e rolagem.
+- **Pages:** seletores e ações de cada funcionalidade.
+- **Tests:** cenários, dados utilizados e validações.
+- **DriverFactory:** criação e configuração do ChromeDriver.
+- **ConfigReader:** leitura das variáveis do arquivo `.env`.
 
-- criar uma nova instância do ChromeDriver antes de cada teste;
-- acessar a página inicial;
-- disponibilizar o WebDriver;
-- finalizar o navegador após cada CT.
-
-Cada teste é executado em uma nova sessão do navegador.
-
-### BasePage
-
-Centraliza métodos reutilizáveis:
-
-```java
-esperarVisivel()
-esperarPresenca()
-clicar()
-clicarComJS()
-rolarAte()
-digitar()
-```
-
-As interações utilizam `WebDriverWait` e `ExpectedConditions`, com timeout padrão de 15 segundos.
-
-### ConfigReader
-
-As credenciais utilizadas no login válido são carregadas por variáveis de ambiente:
+Para o cenário de login válido:
 
 ```env
 APP_USER=usuario
 APP_PASS=senha
 ```
 
-O arquivo `.env` não deve ser versionado.
+O arquivo `.env` não é versionado.
 
 ---
 
 ## Estratégia de testes
 
-Foram aplicadas técnicas de caixa-preta como:
+Foram aplicadas técnicas de teste funcional de caixa-preta, incluindo:
 
 - Partição de Equivalência;
 - Análise de Valor Limite;
-- testes positivos e negativos;
+- cenários positivos e negativos;
 - combinação de condições;
 - transição de estados.
 
-Como os testes são executados contra um ambiente real de produção, foram evitados fluxos que exigissem pagamento real, bypass de CAPTCHA, OTP, acesso a e-mail ou alteração efetiva de senha.
+Como a automação utiliza uma aplicação pública real, foram evitadas operações como pagamento real, bypass de CAPTCHA, OTP, acesso a e-mail e alteração efetiva de senha.
 
 ---
 
 ## Cobertura
 
-| Módulo | Casos | Quantidade |
+| Módulo | Casos | Resultado |
 |---|---|---:|
-| Login | CT001 a CT004 | 4 |
-| Cadastro | CT005 a CT008 | 4 |
-| Busca | CT009 a CT011 | 3 |
-| Filtros | CT012 a CT014 | 3 |
-| Carrinho | CT015 a CT018 | 4 |
-| Recuperação de senha | CT019 e CT020 | 2 |
-| **Total** | **CT001 a CT020** | **20** |
+| Login | CT001 a CT004 | 4/4 ✅ |
+| Cadastro | CT005 a CT008 | 4/4 ✅ |
+| Busca | CT009 a CT011 | 3/3 ✅ |
+| Filtros | CT012 a CT014 | 3/3 ✅ |
+| Carrinho | CT015 a CT018 | 4/4 ✅ |
+| Recuperação de senha | CT019 e CT020 | 2/2 ✅ |
+| **Total** | **CT001 a CT020** | **20/20 ✅** |
 
 ---
 
@@ -154,8 +135,7 @@ Como os testes são executados contra um ambiente real de produção, foram evit
 - Usuário não autenticado.
 - Tela de login disponível.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 Login: emailinvalido
 Senha: Senha123
@@ -167,7 +147,7 @@ O sistema deve rejeitar a tentativa de autenticação.
 
 **Resultado obtido**
 
-A aplicação rejeitou a autenticação e apresentou orientação para tentar novamente.
+A tentativa foi rejeitada e a aplicação apresentou orientação para tentar novamente.
 
 **Status:** ✅ Aprovado
 
@@ -179,8 +159,7 @@ A aplicação rejeitou a autenticação e apresentou orientação para tentar no
 - Tela de login disponível.
 - E-mail preenchido.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 E-mail: teste@email.com
 Senha: vazio
@@ -192,7 +171,7 @@ O sistema deve informar que a senha é obrigatória.
 
 **Resultado obtido**
 
-Foi apresentada mensagem contendo `obrigatório`.
+A aplicação apresentou a validação de campo obrigatório.
 
 **Status:** ✅ Aprovado
 
@@ -204,8 +183,7 @@ Foi apresentada mensagem contendo `obrigatório`.
 - Usuário não autenticado.
 - Tela de login disponível.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 E-mail: usuario.ficticio@teste.com
 Senha: SenhaFicticia123
@@ -217,7 +195,7 @@ O sistema não deve autenticar as credenciais informadas.
 
 **Resultado obtido**
 
-A aplicação apresentou retorno indicando credencial inválida.
+A aplicação informou que as credenciais eram inválidas.
 
 **Status:** ✅ Aprovado
 
@@ -226,15 +204,12 @@ A aplicação apresentou retorno indicando credencial inválida.
 ### CT004 - Login válido
 
 **Pré-condições**
-- Credenciais configuradas no arquivo `.env`.
 - Conta disponível para execução.
+- `APP_USER` e `APP_PASS` configurados no `.env`.
 
-**Massa de teste**
+**Ação**
 
-```text
-APP_USER
-APP_PASS
-```
+Realizar login utilizando as credenciais configuradas.
 
 **Resultado esperado**
 
@@ -242,9 +217,13 @@ O login deve ser processado corretamente.
 
 **Resultado obtido**
 
-O fluxo de login foi executado e permaneceu no domínio das Lojas Renner.
+O fluxo foi processado e a aplicação permaneceu no domínio esperado das Lojas Renner.
 
 **Status:** ✅ Aprovado
+
+### Evidência
+
+![Testes de Login](docs/evidencias/login-testes.png)
 
 ---
 
@@ -261,7 +240,7 @@ Tentar concluir o cadastro sem preencher os campos obrigatórios.
 
 **Resultado esperado**
 
-O sistema deve identificar os campos obrigatórios.
+O sistema deve indicar os campos obrigatórios não preenchidos.
 
 **Resultado obtido**
 
@@ -280,19 +259,18 @@ este campo é obrigatório
 **Pré-condições**
 - Formulário de cadastro aberto.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 CPF: 11111111111
 ```
 
 **Resultado esperado**
 
-O sistema deve rejeitar o CPF.
+O sistema deve rejeitar o CPF informado.
 
 **Resultado obtido**
 
-Foi apresentada validação indicando CPF inválido.
+A aplicação apresentou a validação de CPF inválido.
 
 **Status:** ✅ Aprovado
 
@@ -300,19 +278,21 @@ Foi apresentada validação indicando CPF inválido.
 
 ### CT007 - E-mail em formato inválido
 
-**Massa de teste**
+**Pré-condições**
+- Formulário de cadastro aberto.
 
+**Entrada**
 ```text
 emailsemarroba.com
 ```
 
 **Resultado esperado**
 
-O formulário não deve aceitar o valor como e-mail válido.
+O formulário não deve aceitar o valor como um endereço de e-mail válido.
 
 **Resultado obtido**
 
-A aplicação apresentou validação de formato inválido.
+A aplicação apresentou a validação de formato inválido.
 
 **Status:** ✅ Aprovado
 
@@ -320,15 +300,17 @@ A aplicação apresentou validação de formato inválido.
 
 ### CT008 - Senha fora do padrão mínimo
 
-**Massa de teste**
+**Pré-condições**
+- Formulário de cadastro aberto.
 
+**Entrada**
 ```text
 Senha: 123
 ```
 
 **Resultado esperado**
 
-O sistema deve rejeitar a senha e informar a regra mínima.
+O sistema deve rejeitar a senha e apresentar a regra mínima.
 
 **Resultado obtido**
 
@@ -340,6 +322,10 @@ Ao menos 6 caracteres com letras e números
 
 **Status:** ✅ Aprovado
 
+### Evidência
+
+![Testes de Cadastro](docs/evidencias/cadastro-testes.png)
+
 ---
 
 ## Busca de Produtos
@@ -350,8 +336,7 @@ Ao menos 6 caracteres com letras e números
 - Página inicial acessível.
 - Campo de busca disponível.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 camiseta
 ```
@@ -362,7 +347,7 @@ O termo pesquisado deve ser apresentado e a listagem deve conter produtos.
 
 **Resultado obtido**
 
-O sistema apresentou o termo pesquisado e retornou produtos.
+A aplicação processou a busca, apresentou o termo pesquisado e retornou produtos.
 
 **Status:** ✅ Aprovado
 
@@ -370,19 +355,23 @@ O sistema apresentou o termo pesquisado e retornou produtos.
 
 ### CT010 - Busca por termo sem correspondência direta
 
-**Massa de teste**
+**Pré-condições**
+- Campo de busca disponível.
 
+**Entrada**
 ```text
 produtoautomatizadoinexistente987654
 ```
 
 **Resultado esperado**
 
-A busca deve tratar a consulta sem apresentar erro.
+A aplicação deve tratar a consulta sem apresentar erro.
 
 **Resultado obtido**
 
-A Renner processou a consulta e retornou produtos por mecanismo de relevância/fallback, mantendo o termo pesquisado.
+Mesmo utilizando um termo criado propositalmente para não corresponder diretamente a nenhum produto, a aplicação apresentou produtos na listagem.
+
+O resultado mostra que a busca pode apresentar itens relacionados mesmo sem uma correspondência direta com o termo informado.
 
 **Status:** ✅ Aprovado
 
@@ -390,17 +379,20 @@ A Renner processou a consulta e retornou produtos por mecanismo de relevância/f
 
 ### CT011 - Busca com campo vazio
 
-**Técnica**
+**Pré-condições**
+- Campo de busca disponível.
 
-Análise de Valor Limite: zero caracteres.
+**Entrada**
+
+Campo vazio, representando o limite de zero caracteres.
 
 **Resultado esperado**
 
-A aplicação deve processar a ação sem erro técnico.
+A aplicação deve tratar a ação sem apresentar erro.
 
 **Resultado obtido**
 
-O sistema navegou para:
+O site aceitou a busca vazia, navegou para:
 
 ```text
 /b?Ntt=
@@ -410,24 +402,29 @@ e apresentou uma listagem de produtos.
 
 **Status:** ✅ Aprovado
 
+### Evidência
+
+![Testes de Busca](docs/evidencias/busca-testes.png)
+
 ---
 
-## Filtros de Pesquisa
+## Filtros
 
 **Pré-condição geral**
 
-Os testes partem de uma busca por:
+Os testes partem de uma busca pelo termo:
 
 ```text
 camiseta
 ```
 
----
-
 ### CT012 - Aplicar filtro de gênero masculino
 
-**Ação**
+**Pré-condições**
+- Busca realizada.
+- Painel de filtros disponível.
 
+**Ação**
 ```text
 FILTRAR E ORDENAR
 → Gênero
@@ -441,7 +438,7 @@ A listagem deve ser atualizada após a aplicação do filtro.
 
 **Resultado obtido**
 
-A aplicação processou o filtro e apresentou produtos.
+O filtro foi processado e a aplicação apresentou produtos após a atualização.
 
 **Status:** ✅ Aprovado
 
@@ -449,8 +446,11 @@ A aplicação processou o filtro e apresentou produtos.
 
 ### CT013 - Aplicar gênero e tamanho
 
-**Filtros**
+**Pré-condições**
+- Busca realizada.
+- Painel de filtros disponível.
 
+**Filtros**
 ```text
 Gênero: Masculino
 Tamanho: G
@@ -458,11 +458,11 @@ Tamanho: G
 
 **Resultado esperado**
 
-Os dois critérios devem ser processados simultaneamente.
+Os dois critérios devem ser aplicados simultaneamente.
 
 **Resultado obtido**
 
-A combinação foi aplicada e a listagem permaneceu disponível.
+A combinação de gênero e tamanho foi processada e a listagem apresentou produtos.
 
 **Status:** ✅ Aprovado
 
@@ -474,7 +474,6 @@ A combinação foi aplicada e a listagem permaneceu disponível.
 - Filtros `Masculino` e `G` previamente aplicados.
 
 **Ação**
-
 ```text
 Reabrir filtros
 → LIMPAR FILTROS
@@ -482,13 +481,17 @@ Reabrir filtros
 
 **Resultado esperado**
 
-A listagem deve retornar ao estado sem os critérios aplicados.
+Os filtros devem ser removidos e a listagem deve retornar ao estado sem os critérios selecionados.
 
 **Resultado obtido**
 
-Os filtros foram removidos e a listagem de produtos voltou a ser apresentada.
+Os filtros foram removidos e a listagem voltou a ser apresentada sem os critérios anteriormente aplicados.
 
 **Status:** ✅ Aprovado
+
+### Evidência
+
+![Testes de Filtros](docs/evidencias/filtro-testes.png)
 
 ---
 
@@ -496,19 +499,21 @@ Os filtros foram removidos e a listagem de produtos voltou a ser apresentada.
 
 **Pré-condição geral**
 
-Os testes utilizam um produto obtido pela busca de `camiseta`, selecionando um tamanho disponível antes da inclusão na sacola.
-
----
+Os testes utilizam um produto encontrado pela busca de `camiseta`, selecionando um tamanho disponível antes da inclusão na sacola.
 
 ### CT015 - Adicionar produto ao carrinho
 
-**Ação**
+**Pré-condições**
+- Produto disponível.
+- Tamanho selecionável.
 
+**Ação**
 ```text
 Buscar produto
 → abrir produto
 → selecionar tamanho
 → adicionar à sacola
+→ abrir a sacola
 ```
 
 **Resultado esperado**
@@ -517,7 +522,7 @@ O produto deve ser adicionado à sacola.
 
 **Resultado obtido**
 
-A página `Minha Sacola` foi carregada corretamente.
+O produto foi adicionado e a página `Minha Sacola` foi carregada.
 
 **Status:** ✅ Aprovado
 
@@ -528,13 +533,17 @@ A página `Minha Sacola` foi carregada corretamente.
 **Pré-condições**
 - Produto presente na sacola.
 
+**Ação**
+
+Aumentar a quantidade do produto.
+
 **Resultado esperado**
 
 A quantidade deve ser alterada mantendo o usuário na sacola.
 
 **Resultado obtido**
 
-A operação foi processada e a aplicação permaneceu na rota `/sacola`.
+A operação foi processada e a aplicação permaneceu na página da sacola.
 
 **Status:** ✅ Aprovado
 
@@ -545,13 +554,17 @@ A operação foi processada e a aplicação permaneceu na rota `/sacola`.
 **Pré-condições**
 - Produto presente na sacola.
 
+**Ação**
+
+Remover o produto.
+
 **Resultado esperado**
 
 A sacola deve retornar ao estado vazio.
 
 **Resultado obtido**
 
-Foi apresentada a mensagem:
+A aplicação apresentou:
 
 ```text
 Sua sacola está vazia
@@ -563,19 +576,22 @@ Sua sacola está vazia
 
 ### CT018 - Aplicar cupom inválido
 
-**Massa de teste**
+**Pré-condições**
+- Produto presente na sacola.
+- Campo de cupom disponível.
 
+**Entrada**
 ```text
 RENNER2026
 ```
 
 **Resultado esperado**
 
-O cupom deve ser rejeitado.
+O cupom inválido deve ser rejeitado.
 
 **Resultado obtido**
 
-Foi apresentada a mensagem:
+A aplicação apresentou:
 
 ```text
 Cupom de desconto inválido
@@ -583,37 +599,28 @@ Cupom de desconto inválido
 
 **Status:** ✅ Aprovado
 
+### Evidência
+
+![Testes de Carrinho](docs/evidencias/carrinho-testes.png)
+
 ---
 
 ## Recuperação de Senha
 
-O fluxo atual utiliza CPF para iniciar a recuperação.
+O fluxo identificado na aplicação utiliza CPF para iniciar a recuperação. A automação termina antes de acessar e-mail ou alterar efetivamente a senha.
 
-A automação termina antes de acessar e-mail ou alterar efetivamente a senha.
-
----
-
-### CT019 - CPF inválido
+### CT019 - Recuperação com CPF inválido
 
 **Pré-condições**
 - Usuário não autenticado.
 - Funcionalidade `Esqueci minha senha` disponível.
 
-**Massa de teste**
-
+**Entrada**
 ```text
 000.000.000-00
 ```
 
-**Resultado esperado**
-
-O sistema deve rejeitar o CPF.
-
-**Resultado obtido**
-
-Foi apresentada a mensagem:
-
-```text
+**Resultado ext
 CPF inválido!
 ```
 
@@ -626,8 +633,7 @@ CPF inválido!
 **Pré-condições**
 - Modal de recuperação disponível.
 
-**Massa utilizada**
-
+**Entrada**
 ```text
 012.345.678-90
 ```
@@ -638,78 +644,61 @@ O sistema deve processar a solicitação e apresentar o próximo estado do fluxo
 
 **Resultado obtido**
 
-Foi apresentada mensagem equivalente a:
+A aplicação informou que, caso exista uma conta associada aos dados informados, um link será enviado por e-mail para alteração da senha.
 
-```text
-Se você tem uma conta na Renner,
-vamos enviar um link no seu e-mail
-para você alterar sua senha.
-```
+O sistema não confirma se existe uma conta associada ao CPF, evitando expor essa informação.
 
-A automação é finalizada nesse ponto.
+A automação é encerrada nessa etapa.
 
 **Status:** ✅ Aprovado
 
+### Evidência
+
+docs/evidencias/recuperacao-senha-testes.png
+
 ---
 
-# Resultado consolidado
+# Resultados e Discussão
 
-A suíte completa foi executada pelo runner JUnit do IntelliJ IDEA.
+A execução completa da suíte apresentou:
 
 ```text
-20 tests passed
-20 tests total
-Tempo aproximado: 9 min 2 s
+20 testes executados
+20 testes aprovados
+0 falhas
+Tempo: 8 min 33 s
 Taxa de aprovação: 100%
 ```
 
-| Módulo | Resultado |
-|---|---:|
-| Login | 4/4 |
-| Cadastro | 4/4 |
-| Busca | 3/3 |
-| Filtros | 3/3 |
-| Carrinho | 4/4 |
-| Recuperação de senha | 2/2 |
-| **Total** | **20/20** |
+### Evidência da execução completa
+
+docs/evidencias/execucao-20-testes.png
+
+Além da aprovação dos 20 cenários, alguns resultados observados foram importantes:
+
+- **Busca por termo artificial:** mesmo sem correspondência direta, a aplicação apresentou produtos.
+- **Busca vazia:** o sistema aceitou zero caracteres e retornou uma listagem.
+- **Filtros:** foram validados filtro individual, combinação de critérios e remoção dos filtros.
+- **Recuperação de senha:** a aplicação utiliza CPF e não confirma se existe uma conta correspondente, evitando expor essa informação.
+- **Estado do navegador:** com o Chrome minimizado ocorreram falhas por tempo de espera. Sem alteração no código, a execução com o navegador aberto e maximizado concluiu os 20 testes com sucesso.
+
+Os resultados mostram que testes E2E em aplicações reais podem ser influenciados tanto pelo comportamento da funcionalidade quanto pelo carregamento da página, elementos dinâmicos e condições do navegador.
 
 ---
 
-## Evidência
-
-A execução final apresentou todos os 20 CTs aprovados.
-
-Sugestão para armazenar a evidência no repositório:
-
-```text
-docs/
-└── evidencias/
-    └── execucao-20-testes.png
-```
-
-Para exibir a imagem no README:
-
-```markdown
-![Execução dos 20 testes](docs/evidencias/execucao-20-testes.png)
-```
-
----
-
-## Execução dos testes
+## Execução
 
 ### IntelliJ IDEA
 
-Para executar a suíte completa:
-
 ```text
 src/test/java
-→ package tests
+→ tests
 → Run 'Tests in tests'
 ```
 
 ### Maven
 
-Quando Maven estiver configurado no `PATH`:
+Com o Maven instalado e configurado no `PATH`:
 
 ```bash
 mvn test
@@ -717,79 +706,12 @@ mvn test
 
 ---
 
-## Observações de execução
+## Observações
 
-### Navegador minimizado
-
-Durante os testes foi identificado comportamento intermitente quando a janela do Chrome era minimizada.
-
-Sem alteração do código, CTs que falharam com o navegador minimizado passaram normalmente com a janela ativa.
-
-A execução final validada foi realizada mantendo o Chrome aberto e não minimizado:
-
-```text
-20/20 testes aprovados
-```
-
-Para reproduzir o ambiente validado:
-
-- manter o Chrome maximizado;
-- não minimizar durante a execução;
-- não interagir manualmente com o navegador controlado pelo WebDriver.
-
-### reCAPTCHA
-
-O projeto não implementa bypass do reCAPTCHA.
-
-Quando a validação automática não é possível, pode ser registrada a mensagem:
-
-```text
-reCAPTCHA não validado automaticamente.
-```
-
-### Chrome DevTools Protocol
-
-Com Chrome 158 e Selenium 4.34.0 pode ser apresentado:
-
-```text
-Unable to find CDP implementation matching 158
-```
-
-Esse warning não impediu a execução dos recursos utilizados pela suíte nem a aprovação dos 20 CTs.
-
----
-
-## Limitações
-
-Por utilizar a aplicação real das Lojas Renner, futuras execuções podem ser afetadas por:
-
-- alterações no DOM;
-- mudanças de layout;
-- campanhas promocionais;
-- alterações no catálogo;
-- overlays;
-- CAPTCHA;
-- tempo de resposta da aplicação;
-- atualizações do Chrome;
-- alterações nos fluxos de autenticação;
-- carregamento assíncrono de componentes.
-
-Por esse motivo, a suíte evita depender de valores muitoexata de produtos.
-
----
-
-## Melhorias futuras
-
-- GitHub Actions para CI/CD;
-- screenshots automáticos em falhas;
-- relatórios com Allure Report;
-- atualização de compatibilidade Selenium/Chrome;
-- testes parametrizados;
-- execução cross-browser;
-- testes de API;
-- Selenium Grid;
-- análise de execução headless;
-- monitoramento de flakiness.
+- A execução final foi realizada com o Chrome maximizado e sem interação manual.
+- O projeto não implementa bypass do reCAPTCHA.
+- O aviso `Unable to find CDP implementation matching 158` não impediu a conclusão dos testes.
+- Como os testes utilizam a aplicação real, alterações no site, catálogo, DOM, navegador ou tempo de resposta podem afetar futuras execuções.
 
 ---
 
@@ -797,6 +719,6 @@ Por esse motivo, a suíte evita depender de valores muitoexata de produtos.
 
 **Dionatan Henrique Santos de Castro**
 
-Projeto desenvolvido como estudo de caso para o **Projeto Científico FADERGS**.
+Projeto desenvolvido para o **Projeto Científico FADERGS**.
 
 [Repositório no GitHub](https://github.com/dionatanhc/sipe_fadergs)
