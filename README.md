@@ -1,3 +1,4 @@
+
 # Automação de Testes E2E - Lojas Renner
 
 Projeto de automação de testes funcionais End-to-End (E2E) desenvolvido como estudo de caso para o **Projeto Científico FADERGS**.
@@ -130,6 +131,15 @@ Como a automação utiliza uma aplicação pública real, foram evitadas operaç
 
 ### CT001 - E-mail ou Login inválido
 
+**Passos**
+
+1. Acessar o site das Lojas Renner.
+2. Abrir a tela de login.
+3. Informar um login inválido.
+4. Informar uma senha qualquer.
+5. Clicar em ENTRAR.
+6. Observar o retorno apresentado pela aplicação.
+
 **Pré-condições**
 - Site acessível.
 - Usuário não autenticado.
@@ -155,6 +165,15 @@ A tentativa foi rejeitada e a aplicação apresentou orientação para tentar no
 
 ### CT002 - Senha vazia
 
+**Passos**
+
+1. Acessar o site das Lojas Renner.
+2. Abrir a tela de login.
+3. Informar um e-mail.
+4. Deixar o campo senha em branco.
+5. Clicar em ENTRAR.
+6. Verificar a validação apresentada.
+
 **Pré-condições**
 - Tela de login disponível.
 - E-mail preenchido.
@@ -179,6 +198,15 @@ A aplicação apresentou a validação de campo obrigatório.
 
 ### CT003 - Credenciais inválidas ou fictícias
 
+**Passos**
+
+1. Acessar o site das Lojas Renner.
+2. Abrir a tela de login.
+3. Informar um e-mail fictício.
+4. Informar uma senha fictícia.
+5. Clicar em ENTRAR.
+6. Verificar a mensagem retornada pelo sistema.
+
 **Pré-condições**
 - Usuário não autenticado.
 - Tela de login disponível.
@@ -202,6 +230,15 @@ A aplicação informou que as credenciais eram inválidas.
 ---
 
 ### CT004 - Login válido
+
+**Passos**
+
+1. Acessar o site das Lojas Renner.
+2. Abrir a tela de login.
+3. Informar usuário válido carregado do arquivo .env.
+4. Informar senha válida carregada do arquivo .env.
+5. Clicar em ENTRAR.
+6. Validar o processamento da autenticação.
 
 **Pré-condições**
 - Conta disponível para execução.
@@ -231,6 +268,14 @@ O fluxo foi processado e a aplicação permaneceu no domínio esperado das Lojas
 
 ### CT005 - Campos obrigatórios vazios
 
+**Passos**
+
+1. Acessar o site.
+2. Abrir a tela de cadastro.
+3. Não preencher os campos obrigatórios.
+4. Clicar em CADASTRAR.
+5. Verificar as validações exibidas.
+
 **Pré-condições**
 - Formulário de cadastro disponível.
 
@@ -256,6 +301,16 @@ este campo é obrigatório
 
 ### CT006 - CPF inválido
 
+**Passos**
+
+1. Acessar a tela de cadastro.
+2. Informar e-mail.
+3. Informar CPF inválido.
+4. Informar nome e sobrenome.
+5. Aceitar os termos.
+6. Tentar concluir o cadastro.
+7. Verificar a mensagem apresentada.
+
 **Pré-condições**
 - Formulário de cadastro aberto.
 
@@ -278,6 +333,15 @@ A aplicação apresentou a validação de CPF inválido.
 
 ### CT007 - E-mail em formato inválido
 
+**Passos**
+
+1. Acessar a tela de cadastro.
+2. Informar e-mail em formato inválido.
+3. Informar os demais dados necessários.
+4. Aceitar os termos.
+5. Tentar concluir o cadastro.
+6. Verificar a validação exibida.
+
 **Pré-condições**
 - Formulário de cadastro aberto.
 
@@ -299,6 +363,16 @@ A aplicação apresentou a validação de formato inválido.
 ---
 
 ### CT008 - Senha fora do padrão mínimo
+
+**Passos**
+
+1. Acessar a tela de cadastro.
+2. Informar e-mail.
+3. Informar nome.
+4. Informar senha fora do padrão mínimo.
+5. Aceitar os termos.
+6. Tentar concluir o cadastro.
+7. Verificar a mensagem apresentada.
 
 **Pré-condições**
 - Formulário de cadastro aberto.
@@ -332,6 +406,14 @@ Ao menos 6 caracteres com letras e números
 
 ### CT009 - Busca com termo válido
 
+**Passos**
+
+1. Acessar a página inicial.
+2. Informar o termo "camiseta".
+3. Executar a busca.
+4. Verificar o termo pesquisado.
+5. Verificar a listagem de produtos.
+
 **Pré-condições**
 - Página inicial acessível.
 - Campo de busca disponível.
@@ -354,6 +436,14 @@ A aplicação processou a busca, apresentou o termo pesquisado e retornou produt
 ---
 
 ### CT010 - Busca por termo sem correspondência direta
+
+**Passos**
+
+1. Acessar a página inicial.
+2. Informar o termo de teste.
+3. Executar a busca.
+4. Verificar o comportamento da aplicação.
+5. Verificar a listagem apresentada.
 
 **Pré-condições**
 - Campo de busca disponível.
@@ -378,6 +468,14 @@ O resultado mostra que a busca pode apresentar itens relacionados mesmo sem uma 
 ---
 
 ### CT011 - Busca com campo vazio
+
+**Passos**
+
+1. Acessar a página inicial.
+2. Manter o campo de busca vazio.
+3. Acionar a busca.
+4. Verificar a navegação realizada.
+5. Verificar os resultados apresentados.
 
 **Pré-condições**
 - Campo de busca disponível.
@@ -420,6 +518,15 @@ camiseta
 
 ### CT012 - Aplicar filtro de gênero masculino
 
+**Passos**
+
+1. Buscar o termo "camiseta".
+2. Abrir o painel de filtros.
+3. Selecionar o filtro Gênero.
+4. Selecionar Masculino.
+5. Aplicar os filtros.
+6. Verificar os resultados retornados.
+
 **Pré-condições**
 - Busca realizada.
 - Painel de filtros disponível.
@@ -446,6 +553,15 @@ O filtro foi processado e a aplicação apresentou produtos após a atualizaçã
 
 ### CT013 - Aplicar gênero e tamanho
 
+**Passos**
+
+1. Buscar o termo "camiseta".
+2. Abrir os filtros.
+3. Selecionar Masculino.
+4. Selecionar tamanho G.
+5. Aplicar os filtros.
+6. Verificar a listagem apresentada.
+
 **Pré-condições**
 - Busca realizada.
 - Painel de filtros disponível.
@@ -469,6 +585,14 @@ A combinação de gênero e tamanho foi processada e a listagem apresentou produ
 ---
 
 ### CT014 - Limpar filtros
+
+**Passos**
+
+1. Buscar o termo "camiseta".
+2. Aplicar os filtros Masculino e G.
+3. Reabrir o painel de filtros.
+4. Selecionar LIMPAR FILTROS.
+5. Verificar o retorno da listagem sem os filtros aplicados.
 
 **Pré-condições**
 - Filtros `Masculino` e `G` previamente aplicados.
@@ -503,6 +627,15 @@ Os testes utilizam um produto encontrado pela busca de `camiseta`, selecionando 
 
 ### CT015 - Adicionar produto ao carrinho
 
+**Passos**
+
+1. Buscar um produto.
+2. Abrir o primeiro produto encontrado.
+3. Selecionar um tamanho disponível.
+4. Adicionar o produto à sacola.
+5. Abrir a sacola.
+6. Verificar a inclusão do item.
+
 **Pré-condições**
 - Produto disponível.
 - Tamanho selecionável.
@@ -530,6 +663,13 @@ O produto foi adicionado e a página `Minha Sacola` foi carregada.
 
 ### CT016 - Alterar quantidade
 
+**Passos**
+
+1. Adicionar um produto à sacola.
+2. Abrir a sacola.
+3. Clicar no botão de aumento de quantidade.
+4. Verificar a atualização do carrinho.
+
 **Pré-condições**
 - Produto presente na sacola.
 
@@ -550,6 +690,13 @@ A operação foi processada e a aplicação permaneceu na página da sacola.
 ---
 
 ### CT017 - Remover produto
+
+**Passos**
+
+1. Adicionar um produto à sacola.
+2. Abrir a sacola.
+3. Remover o item.
+4. Verificar a mensagem de carrinho vazio.
 
 **Pré-condições**
 - Produto presente na sacola.
@@ -575,6 +722,14 @@ Sua sacola está vazia
 ---
 
 ### CT018 - Aplicar cupom inválido
+
+**Passos**
+
+1. Adicionar um produto à sacola.
+2. Abrir a sacola.
+3. Informar um cupom inválido.
+4. Clicar em OK.
+5. Verificar a mensagem de erro apresentada.
 
 **Pré-condições**
 - Produto presente na sacola.
@@ -611,6 +766,14 @@ O fluxo identificado na aplicação utiliza CPF para iniciar a recuperação. A 
 
 ### CT019 - Recuperação com CPF inválido
 
+**Passos**
+
+1. Abrir a tela de login.
+2. Selecionar ESQUECI MINHA SENHA.
+3. Informar CPF inválido.
+4. Clicar em ENVIAR.
+5. Verificar a mensagem retornada.
+
 **Pré-condições**
 - Usuário não autenticado.
 - Funcionalidade `Esqueci minha senha` disponível.
@@ -620,9 +783,9 @@ O fluxo identificado na aplicação utiliza CPF para iniciar a recuperação. A 
 000.000.000-00
 ```
 
-**Resultado ext
+**Resultado obtido**
+
 CPF inválido!
-```
 
 **Status:** ✅ Aprovado
 
@@ -630,13 +793,20 @@ CPF inválido!
 
 ### CT020 - Solicitar recuperação de senha
 
+**Passos**
+
+1. Abrir a tela de login.
+2. Selecionar ESQUECI MINHA SENHA.
+3. Informar CPF aceito pelo formulário.
+4. Clicar em ENVIAR.
+5. Verificar a mensagem de confirmação apresentada.
+
 **Pré-condições**
-- Modal de recuperação disponível.
+
+- Usuário não autenticado.
+- Funcionalidade de recuperação de senha disponível.
 
 **Entrada**
-```text
-012.345.678-90
-```
 
 **Resultado esperado**
 
@@ -654,7 +824,7 @@ A automação é encerrada nessa etapa.
 
 ### Evidência
 
-docs/evidencias/recuperacao-senha-testes.png
+![Testes de Recuperação de Senha](docs/evidencias/recuperacao-senha-testes.png)
 
 ---
 
@@ -672,7 +842,7 @@ Taxa de aprovação: 100%
 
 ### Evidência da execução completa
 
-docs/evidencias/execucao-20-testes.png
+![Execução dos 20 testes](docs/evidencias/execucao-20-testes.png)
 
 Além da aprovação dos 20 cenários, alguns resultados observados foram importantes:
 
