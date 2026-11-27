@@ -1,4 +1,4 @@
-# Automação de Testes E2E - Lojas Renner
+# Automação de Testes - Lojas Renner
 
 Projeto de automação de testes funcionais End-to-End desenvolvido como estudo de caso para o **Projeto Científico FADERGS**.
 
@@ -18,7 +18,7 @@ Tempo aproximado: 9 min 2 s
 
 ## Objetivo
 
-Desenvolver uma suíte de testes automatizados para validar fluxos relevantes de um e-commerce real, aplicando conceitos de Qualidade de Software, testes funcionais de caixa-preta e automação E2E.
+Desenvolver uma suíte de testes automatizados para validar fluxos relevantes de um e-commerce real, aplicando conceitos de Qualidade de Software, testes funcionais de caixa-preta e automação.
 
 Funcionalidades cobertas:
 
